@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>ManThink AI</title>
+
+  <meta
+    name="description"
+    content="ManThink AI - AI Assistant by Muaz Multani">
+
+  <meta
+    name="theme-color"
+    content="#0f172a">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <link
+    rel="stylesheet"
+    href="style.css">
+
+</head>
+
+<body class="dark">
+
+  <div id="appShell" class="app-shell visible">
+
+    <aside class="sidebar">
+
+      <div class="brand">
+
+        <div class="brand-mark">
+          M
+        </div>
+
+        <div>
+          <h2>ManThink AI</h2>
+          <p>by Muaz Multani</p>
+        </div>
+
+      </div>
+
+      <button
+        id="newChatBtn"
+        class="new-chat"
+        type="button">
+
+        + New Chat
+
+      </button>
+
+      <div class="menu">
+
+        <button
+          class="menu-btn active"
+          type="button">
+
+          💬 Chats
+
+        </button>
+
+        <button
+          class="menu-btn"
+          type="button">
+
+          🧠 Memories
+
+        </button>
+
+        <button
+          class="menu-btn"
+          type="button">
+
+          👤 Profile
+
+        </button>
+
+        <button
+          class="menu-btn"
+          type="button">
+
+          ⚙ Settings
+
+        </button>
+
+      </div>
+
+      <div class="theme-area">
+
+        <button
+          id="themeBtn"
+          class="theme-btn"
+          type="button">
+
+          🌙 Dark Mode
+
+        </button>
+
+      </div>
+
+    </aside>
+
+    <main class="main">
+
+      <header class="topbar">
+
+        <div>
+
+          <div class="eyebrow">
+            ManThink AI
+          </div>
+
+          <h1>
+            AI Assistant by Muaz Multani
+          </h1>
+
+          <p>
+            Ask for coding help,
+            project ideas,
+            game development,
+            or anything else.
+          </p>
+
+        </div>
+
+        <div class="online-pill">
+
+          <span class="online-dot"></span>
+
+          Online
+
+        </div>
+
+      </header>
+            <section id="chatbox" class="chatbox">
+
+        <div id="welcomeCard" class="welcome-card">
+
+          <div class="welcome-tag">
+            Welcome
+          </div>
+
+          <div class="mini-note">
+            JUST FOR TIME PASS
+          </div>
+
+          <h2>
+            What can I help with today?
+          </h2>
+
+          <p>
+            Start with a coding problem,
+            a project idea,
+            a game design question,
+            or anything on your mind.
+          </p>
+
+          <div class="quick-grid">
+
+            <button
+              class="quick-btn"
+              type="button"
+              data-prompt="Help me learn AI from scratch.">
+
+              Learn AI
+
+            </button>
+
+            <button
+              class="quick-btn"
+              type="button"
+              data-prompt="Help me design a tycoon game idea.">
+
+              Game Idea
+
+            </button>
+
+            <button
+              class="quick-btn"
+              type="button"
+              data-prompt="Explain JavaScript scope and hoisting simply.">
+
+              JS Scope
+
+            </button>
+
+            <button
+              class="quick-btn"
+              type="button"
+              data-prompt="Make my app UI look premium and modern.">
+
+              UI Polish
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="composer-wrap">
+
+        <div class="composer">
+
+          <button
+            class="icon-btn"
+            type="button"
+            title="Attach">
+
+            📎
+
+          </button>
+
+          <input
+            id="message"
+            type="text"
+            placeholder="Message ManThink AI..."
+            autocomplete="off">
+
+          <button
+            class="icon-btn"
+            type="button"
+            title="Voice">
+
+            🎤
+
+          </button>
+
+          <button
+            id="sendBtn"
+            class="send-btn"
+            type="button">
+
+            ➤
+
+          </button>
+
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="renderer.js"></script>
+
+</body>
+
+</html>
