@@ -2,14 +2,19 @@
   "name": "manthink-ai",
   "version": "1.1.0",
   "private": true,
-  "description": "ManThink AI - AI Assistant",
   "type": "module",
   "license": "MIT",
-   "engines": {
-  "node": "24.x"
-},
+  "description": "ManThink AI - AI Assistant",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "@tavily/core": "^0.7.6",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "openai": "^6.48.0"
   }
 }
