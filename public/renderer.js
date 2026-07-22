@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sendBtn = document.getElementById("sendBtn");
   const newChatBtn = document.getElementById("newChatBtn");
   const themeBtn = document.getElementById("themeBtn");
+  const chatSearch = document.getElementById("chatSearch");
   const menuButtons = Array.from(document.querySelectorAll(".menu-btn"));
 
   if (!chatbox || !messageInput || !sendBtn || !newChatBtn || !themeBtn) {
@@ -13,7 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   let activeView = "chats";
-
+  // Current Chat History
+  let currentChat = [];
+  // Current active chat
+  let currentChatId = null;
   // =========================
   // Theme
   // =========================
@@ -177,9 +181,88 @@ document.addEventListener("DOMContentLoaded", () => {
   // Chats
   // =========================
 
+  function renderChatHistory(filter = "") {
+
+  const historyBox = document.getElementById("chatHistory");
+
+  if (!historyBox) return;
+
+  historyBox.innerHTML = "";
+
+  let chats = loadChats();
+
+  // Latest first
+  chats.sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+  
+  chats = chats.filter(chat =>
+  Array.isArray(chat.messages) &&
+  chat.messages.length > 0
+);
+
+  if (filter) {
+
+    const search = filter.toLowerCase();
+
+    chats = chats.filter(chat =>
+      (chat.title || "")
+      .toLowerCase()
+      .includes(search)
+    );
+
+  }
+
+  chats.forEach(chat => {
+
+    const item = document.createElement("div");
+
+    item.className = "chat-item";
+
+    if (chat.id === currentChatId) {
+      item.classList.add("active");
+    }
+item.textContent =
+  "💬 " +
+  (chat.title || "Untitled");
+    item.onclick = () => {
+
+      currentChatId = chat.id;
+      setCurrentChat(chat.id);
+      currentChat = chat.messages || [];
+
+      renderChatsPanel();
+
+    };
+
+    historyBox.appendChild(item);
+
+  });
+
+}
   function renderChatsPanel() {
-    renderWelcome();
+
+    chatbox.innerHTML = "";
+
+    renderChatHistory();
+
+    if (currentChat.length === 0) {
+
+      renderWelcome();
+
+    } else {
+
+      currentChat.forEach(msg => {
+
+        appendBubble(
+          msg.role === "assistant" ? "ai" : "user",
+          msg.text
+        );
+
+      });
+
+    }
+
     messageInput.focus();
+
   }
 
   // =========================
@@ -226,47 +309,56 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // =========================
-  // Profile
+  // about the developer
   // =========================
 
   function renderProfilePanel() {
-
     renderPanel(
-      "👤 Profile",
-      "Muaz Multani",
-      "Creator of ManThink AI.",
-
+      "👨‍💻 About the Developer",
+      "Mohammad Muaz",
+      "Founder & Developer of ManThink AI",
       `
-      <div class="mini-note">
-        Version 1.0
+      <div class="mini-note">Developer Information</div>
+
+      <div style="
+        margin-top:20px;
+        line-height:2;
+        font-size:16px;
+      ">
+
+        <div><strong>👤 Name:</strong> Mohammad Muaz multani</div>
+
+        <div><strong>🎂 Age:</strong> 17</div>
+
+        <div><strong>🌍 Country:</strong> India 🇮🇳</div>
+
+        <div><strong>🎓 Education:</strong> 12th Student</div>
+
+        <div><strong>📷 Instagram:</strong> @m_muadh_m</div>
+
+        <div><strong>💻 GitHub:</strong> github.com/muaz78</div>
+
+        <div><strong>🚀 Role:</strong> Founder & Developer of ManThink AI</div>
+
       </div>
 
-      <div
-        style="
-          margin-top:16px;
-          line-height:2;
-        "
-      >
+      <div style="
+        margin-top:22px;
+        padding:16px;
+        border-radius:14px;
+        background:rgba(255,255,255,.05);
+        border:1px solid rgba(255,255,255,.08);
+        line-height:1.8;
+      ">
 
-        <div>
-          <strong>Project:</strong>
-          ManThink AI
-        </div>
-
-        <div>
-          <strong>Mode:</strong>
-          Web AI Assistant
-        </div>
-
-        <div>
-          <strong>Status:</strong>
-          Online
-        </div>
+        Passionate about Artificial Intelligence,
+        Web Development, and Game Development.
+        Building modern AI applications that help
+        people learn, create, and solve problems.
 
       </div>
-      `
+    `
     );
-
   }
 
   // =========================
@@ -394,11 +486,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ========= Part 2 starts here =========
   // async function sendMessage() { ... }
-    async function sendMessage() {
+  async function sendMessage() {
 
     const message = messageInput.value.trim();
 
+    const webSearch =
+document.getElementById("webSearch")?.checked || false;
+
     if (!message) return;
+
+    if (!currentChatId) {
+
+  const chats = loadChats();
+
+  const chat = createChat();
+
+  chats.unshift(chat);
+
+  saveChats(chats);
+
+  currentChatId = chat.id;
+
+  setCurrentChat(chat.id);
+
+}
 
     if (activeView !== "chats") {
       renderChatsPanel();
@@ -410,32 +521,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
     appendBubble("user", message);
 
+    // Save user message
+    currentChat.push({
+      role: "user",
+      text: message
+    });
+updateCurrentChatTitle(message);
+saveCurrentChat(currentChat);
+
     const thinking = appendBubble("ai", "Thinking...");
     thinking.classList.add("typing");
 
     try {
 
       const response = await fetch("/api/chat", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    message,
+    history: currentChat,
+    webSearch
+  })
+});
 
-        method: "POST",
+const responseText = await response.text();
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+let data;
 
-        body: JSON.stringify({
-          message
-        })
+try {
+  data = JSON.parse(responseText);
+} catch {
+  throw new Error(responseText);
+}
 
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.error || "Server Error"
-        );
-      }
+if (!response.ok) {
+  throw new Error(data.error || "Server Error");
+}
 
       thinking.classList.remove("typing");
 
@@ -445,6 +568,14 @@ document.addEventListener("DOMContentLoaded", () => {
         7
       );
 
+      // Save AI reply
+      currentChat.push({
+        role: "assistant",
+        text: data.reply
+      });
+
+     saveCurrentChat(currentChat);
+      renderChatHistory();
     } catch (err) {
 
       thinking.classList.remove("typing");
@@ -461,6 +592,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function newChat() {
 
+    const chats = loadChats();
+
+   currentChatId = null;
+currentChat = [];
+
+    currentChat = [];
+
     renderChatsPanel();
 
     messageInput.value = "";
@@ -468,7 +606,28 @@ document.addEventListener("DOMContentLoaded", () => {
     messageInput.focus();
 
   }
+  function updateCurrentChatTitle(message){
 
+    const chats = loadChats();
+
+    const chat = chats.find(c => c.id === currentChatId);
+
+    if(!chat) return;
+
+    if(!chat.title){
+
+        chat.title =
+            message.length > 30
+            ? message.substring(0,30) + "..."
+            : message;
+
+    }
+
+    chat.updatedAt = Date.now();
+
+    saveChats(chats);
+
+}
   // ===========================
   // Initial Theme
   // ===========================
@@ -549,7 +708,11 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===========================
   // Enter Key
   // ===========================
+chatSearch?.addEventListener("input", e=>{
 
+  renderChatHistory(e.target.value);
+
+});
   messageInput.addEventListener(
     "keydown",
     event => {

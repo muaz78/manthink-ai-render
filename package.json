@@ -1,14 +1,15 @@
 {
   "name": "manthink-ai",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "ManThink AI - AI Assistant",
   "type": "module",
   "license": "MIT",
-  "engines": {
-    "node": "20.x"
-  },
+   "engines": {
+  "node": "24.x"
+},
   "dependencies": {
-    "@google/genai": "^1.15.0"
+    "@tavily/core": "^0.7.6",
+    "openai": "^6.48.0"
   }
 }

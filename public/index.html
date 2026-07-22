@@ -35,7 +35,7 @@
   <link
     rel="stylesheet"
     href="style.css">
-
+<link rel="icon" type="image/png" href="logo.png">
 </head>
 
 <body class="dark">
@@ -46,16 +46,11 @@
 
       <div class="brand">
 
-        <div class="brand-mark">
-          M
-        </div>
+    <img src="logo.png"
+         alt="ManThink AI"
+         class="logo">
 
-        <div>
-          <h2>ManThink AI</h2>
-          <p>by Muaz Multani</p>
-        </div>
-
-      </div>
+</div>
 
       <button
         id="newChatBtn"
@@ -65,42 +60,52 @@
         + New Chat
 
       </button>
+       <!-- Search -->
 
-      <div class="menu">
+<div class="chat-search">
 
-        <button
-          class="menu-btn active"
-          type="button">
+  <input
+    id="chatSearch"
+    type="text"
+    placeholder="🔍 Search chats...">
 
-          💬 Chats
+</div>
 
-        </button>
+<!-- Chat History -->
 
-        <button
-          class="menu-btn"
-          type="button">
+<div id="chatHistory" class="chat-history">
 
-          🧠 Memories
+</div>
 
-        </button>
+<!-- Bottom Menu -->
 
-        <button
-          class="menu-btn"
-          type="button">
+<div class="menu sidebar-bottom">
 
-          👤 Profile
+  <button
+    class="menu-btn"
+    type="button">
 
-        </button>
+    🧠 Memories
 
-        <button
-          class="menu-btn"
-          type="button">
+  </button>
 
-          ⚙ Settings
+  <button
+    class="menu-btn"
+    type="button">
 
-        </button>
+    👤 Profile
 
-      </div>
+  </button>
+
+  <button
+    class="menu-btn"
+    type="button">
+
+    ⚙ Settings
+
+  </button>
+
+</div>
 
       <div class="theme-area">
 
@@ -229,6 +234,14 @@
 
           </button>
 
+           <label class="web-toggle">
+  <input
+    id="webSearch"
+    type="checkbox">
+
+  <span>🌐 Web</span>
+</label>
+
           <input
             id="message"
             type="text"
@@ -260,7 +273,7 @@
     </main>
 
   </div>
-
+  <script src="chatStorage.js"></script>
   <script src="renderer.js"></script>
 
 </body>
