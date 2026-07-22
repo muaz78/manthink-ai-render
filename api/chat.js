@@ -11,17 +11,27 @@ import { tavily } from "@tavily/core";
    ENVIRONMENT VARIABLES
 ========================================================= */
 
+
+
 const {
-  GROQ_API_KEY,
+  GROQ_API_KEY_1,
+  GROQ_API_KEY_2,
+  GROQ_API_KEY_3,
   TAVILY_API_KEY,
 } = process.env;
 
+const GROQ_KEYS = [
+  GROQ_API_KEY_1,
+  GROQ_API_KEY_2,
+  GROQ_API_KEY_3,
+].filter(Boolean);
+
 console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("GROQ exists:", !!process.env.GROQ_API_KEY);
+console.log("Groq Keys Loaded:", GROQ_KEYS.length);
 console.log("TAVILY exists:", !!process.env.TAVILY_API_KEY);
 
-if (!GROQ_API_KEY) {
-  throw new Error("GROQ_API_KEY is missing.");
+if (GROQ_KEYS.length === 0) {
+  throw new Error("No GROQ API Keys found.");
 }
 
 if (!TAVILY_API_KEY) {
@@ -32,11 +42,12 @@ if (!TAVILY_API_KEY) {
    GROQ CLIENT
 ========================================================= */
 
-const groq = new OpenAI({
-  apiKey: GROQ_API_KEY,
-  baseURL: "https://api.groq.com/openai/v1",
-});
-
+function getGroqClient(apiKey) {
+  return new OpenAI({
+    apiKey,
+    baseURL: "https://api.groq.com/openai/v1",
+  });
+}
 /* =========================================================
    TAVILY CLIENT
 ========================================================= */
@@ -332,47 +343,74 @@ async function performWebSearch(query) {
 ========================================================= */
 
 async function generateResponse(messages) {
-  try {
-    console.log("Calling Groq...");
-    console.log("Model:", MODEL);
 
-    const completion = await groq.chat.completions.create({
-      model: MODEL,
-      messages,
-      temperature: GENERATION_CONFIG.temperature,
-      top_p: GENERATION_CONFIG.top_p,
-      max_tokens: GENERATION_CONFIG.max_tokens,
-    });
+  let lastError;
 
-    console.log("Groq Success");
-    console.log(JSON.stringify(completion, null, 2));
+  for (let i = 0; i < GROQ_KEYS.length; i++) {
 
-    return {
-      reply: completion.choices?.[0]?.message?.content?.trim() || "",
-      model: MODEL,
-    };
-  } catch (error) {
-    console.error("========== FULL GROQ ERROR ==========");
-    console.error("Error object:", error);
+    const groq = getGroqClient(GROQ_KEYS[i]);
 
-    console.error("Status:", error?.status);
-    console.error("Code:", error?.code);
-    console.error("Message:", error?.message);
+    try {
 
-    if (error?.response) {
-      console.error("Response status:", error.response?.status);
-      console.error("Response headers:", error.response?.headers);
+      console.log(`Trying Groq Key ${i + 1}`);
 
-      try {
-        const responseText = await error.response.text();
-        console.error("Response body:", responseText);
-      } catch (responseError) {
-        console.error("Could not read response body:", responseError);
-      }
+      const completion = await groq.chat.completions.create({
+
+        model: MODEL,
+
+        messages,
+
+        temperature: GENERATION_CONFIG.temperature,
+
+        top_p: GENERATION_CONFIG.top_p,
+
+        max_tokens: GENERATION_CONFIG.max_tokens,
+
+      });
+
+      console.log(`Groq Key ${i + 1} Success`);
+
+      return {
+
+        reply:
+          completion.choices?.[0]?.message?.content?.trim() || "",
+
+        model: MODEL,
+
+      };
+
     }
 
-    throw error;
+    catch (error) {
+
+      lastError = error;
+
+      console.log(`Groq Key ${i + 1} Failed`);
+
+      if (error?.status === 429) {
+
+        console.log("Rate Limit. Switching Key...");
+
+        continue;
+
+      }
+
+      if (error?.status === 401) {
+
+        console.log("Invalid Key. Switching Key...");
+
+        continue;
+
+      }
+
+      throw error;
+
+    }
+
   }
+
+  throw lastError;
+
 }
 
 /* =========================================================
