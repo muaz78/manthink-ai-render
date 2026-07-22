@@ -13,29 +13,26 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend
+// Serve files from public/
 app.use(express.static(path.join(__dirname, "public")));
 
 // API
 app.post("/api/chat", async (req, res) => {
-  try {
-    await handler(req, res);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({
-      success: false,
-      error: err.message || "Internal Server Error",
-    });
-  }
+  await handler(req, res);
 });
 
-// All frontend routes
-app.get("*", (req, res) => {
+// Homepage
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// Any other route
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`ManThink running on port ${PORT}`);
 });
