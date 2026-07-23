@@ -654,3 +654,214 @@ body,
 .web-toggle span{
     white-space:nowrap;
 }
+/* ==========================
+   DEVICE MODE
+========================== */
+
+body.desktop .sidebar{
+    display:flex;
+}
+
+body.mobile .sidebar{
+    display:none;
+}
+/* ==========================
+   MOBILE MENU BUTTON
+========================== */
+
+.menu-toggle{
+
+    display:none;
+
+    width:46px;
+
+    height:46px;
+
+    border:none;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-size:22px;
+
+    background:rgba(255,255,255,.06);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    transition:.25s;
+
+}
+
+.menu-toggle:hover{
+
+    background:rgba(255,255,255,.1);
+
+}
+
+body.mobile .menu-toggle{
+
+    display:grid;
+
+    place-items:center;
+
+}
+/* ==========================
+   MOBILE SIDEBAR
+========================== */
+
+body.mobile .sidebar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:300px;
+
+    height:100vh;
+
+    z-index:1000;
+
+    transform:translateX(-100%);
+
+    transition:transform .3s ease;
+
+    display:flex;
+
+}
+
+body.mobile.sidebar-open .sidebar{
+
+    transform:translateX(0);
+
+}
+/* ==========================
+   SIDEBAR OVERLAY
+========================== */
+
+.sidebar-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.45);
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+    z-index:900;
+
+}
+
+body.mobile.sidebar-open .sidebar-overlay{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+/* ==========================
+   MOBILE LAYOUT
+========================== */
+
+@media (max-width:768px){
+
+body.mobile .topbar{
+
+    padding:14px 16px;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+body.mobile .topbar h1{
+
+    font-size:20px;
+
+}
+
+body.mobile .topbar p{
+
+    display:none;
+
+}
+
+body.mobile .online-pill{
+
+    display:none;
+
+}
+
+body.mobile .chatbox{
+
+    padding:16px;
+
+    gap:14px;
+
+}
+
+body.mobile .bubble{
+
+    max-width:100%;
+
+    font-size:15px;
+
+    line-height:1.7;
+
+}
+
+body.mobile .welcome-card{
+
+    width:100%;
+
+    padding:20px;
+
+}
+
+body.mobile .welcome-card h2{
+
+    font-size:26px;
+
+}
+
+body.mobile .quick-grid{
+
+    grid-template-columns:1fr;
+
+}
+
+body.mobile .composer-wrap{
+
+    padding:12px;
+
+    position:sticky;
+
+    bottom:0;
+
+    background:var(--bg);
+
+}
+
+body.mobile .composer{
+
+    border-radius:20px;
+
+}
+
+body.mobile .composer input{
+
+    font-size:16px;
+
+}
+
+}

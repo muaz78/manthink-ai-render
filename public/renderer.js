@@ -1,12 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
-  const chatbox = document.getElementById("chatbox");
-  const messageInput = document.getElementById("message");
-  const sendBtn = document.getElementById("sendBtn");
-  const newChatBtn = document.getElementById("newChatBtn");
-  const themeBtn = document.getElementById("themeBtn");
-  const chatSearch = document.getElementById("chatSearch");
-  const menuButtons = Array.from(document.querySelectorAll(".menu-btn"));
+const chatbox = document.getElementById("chatbox");
+const messageInput = document.getElementById("message");
+const sendBtn = document.getElementById("sendBtn");
+const newChatBtn = document.getElementById("newChatBtn");
+const themeBtn = document.getElementById("themeBtn");
+const chatSearch = document.getElementById("chatSearch");
+const menuButtons = Array.from(document.querySelectorAll(".menu-btn"));
+
+const menuToggle =
+  document.getElementById("menuToggle");
+
+const sidebarOverlay =
+  document.getElementById("sidebarOverlay");
+// =========================
+// Mobile Sidebar
+// =========================
+
+menuToggle?.addEventListener("click", () => {
+
+    document.body.classList.toggle("sidebar-open");
+
+});
+sidebarOverlay?.addEventListener("click", () => {
+
+    document.body.classList.remove("sidebar-open");
+
+});
 
   if (!chatbox || !messageInput || !sendBtn || !newChatBtn || !themeBtn) {
     console.error("Required elements not found.");
@@ -18,6 +38,31 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentChat = [];
   // Current active chat
   let currentChatId = null;
+  // =========================
+// Device Mode
+// =========================
+
+function updateDeviceMode() {
+
+  const isMobile = window.innerWidth <= 768;
+
+  document.body.classList.toggle("mobile", isMobile);
+
+  document.body.classList.toggle("desktop", !isMobile);
+  if (!isMobile) {
+
+    document.body.classList.remove("sidebar-open");
+
+}
+
+}
+
+updateDeviceMode();
+
+window.addEventListener(
+  "resize",
+  updateDeviceMode
+);
   // =========================
   // Theme
   // =========================
