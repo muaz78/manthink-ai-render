@@ -865,3 +865,22 @@ body.mobile .composer input{
 }
 
 }
+@media (max-width:768px){
+
+  .web-toggle{
+    padding:0;
+    margin:0 6px;
+    border:none;
+    background:transparent;
+  }
+
+  .web-toggle span{
+    display:none;
+  }
+
+  .web-toggle input{
+    width:18px;
+    height:18px;
+  }
+
+}
