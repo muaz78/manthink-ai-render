@@ -9,6 +9,37 @@
     name="viewport"
     content="width=device-width, initial-scale=1.0">
 
+    <!-- ManThink PWA -->
+<link rel="manifest" href="/manifest.json">
+
+<meta name="theme-color" content="#0d0d0d">
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ManThink">
+
+<link rel="apple-touch-icon" href="/icon-192.png">
+<!-- Quantum Loader -->
+<script
+  type="module"
+  src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/quantum.js">
+</script>
+
+<!-- Markdown Renderer -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<!-- Highlight.js -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js">
+</script>
+
+<!-- JSZip - Multi File Project Download -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
   <title>ManThink AI</title>
 
   <meta
@@ -156,13 +187,22 @@
 
         </div>
 
-        <div class="online-pill">
+        <div class="topbar-actions">
 
-          <span class="online-dot"></span>
+  <button
+    id="installAppBtn"
+    class="install-app-btn"
+    type="button"
+    hidden>
+    ↓ Install
+  </button>
 
-          Online
+  <div class="online-pill">
+    <span class="online-dot"></span>
+    Online
+  </div>
 
-        </div>
+</div>
 
       </header>
             <section id="chatbox" class="chatbox">
@@ -174,7 +214,7 @@
           </div>
 
           <div class="mini-note">
-            JUST FOR TIME PASS
+            More to come!
           </div>
 
           <h2>
@@ -233,18 +273,92 @@
       </section>
 
       <section class="composer-wrap">
+        
+      <!-- Selected Files / Photos Preview -->
+<div
+  id="attachmentPreview"
+  class="attachment-preview"
+  hidden>
+</div>
 
         <div class="composer">
 
-          <button
-            class="icon-btn"
-            type="button"
-            title="Attach">
+         <button
+  id="createMenuBtn"
+  class="icon-btn create-orb"
+  type="button"
+  title="Create with ManThink"
+  aria-label="Open tools">
 
-            📎
+  <span class="create-spark">✦</span>
+  <span class="create-plus">+</span>
 
-          </button>
+</button>
+<div id="createMenu" class="create-menu" hidden>
 
+  <div class="create-menu-title">
+    <span>✦</span>
+    Create with ManThink
+  </div>
+
+  <button
+    id="uploadFileBtn"
+    class="create-tool"
+    type="button">
+    <span class="tool-icon">📎</span>
+    <span>
+      <strong>Upload files</strong>
+      <small>PDF, code, documents</small>
+    </span>
+  </button>
+
+  <button
+    id="uploadPhotoBtn"
+    class="create-tool"
+    type="button">
+    <span class="tool-icon">▧</span>
+    <span>
+      <strong>Add photos</strong>
+      <small>Images and screenshots</small>
+    </span>
+  </button>
+
+  <button
+    id="createWebBtn"
+    class="create-tool"
+    type="button">
+    <span class="tool-icon">◎</span>
+    <span>
+      <strong>Web search</strong>
+      <small>Search current information</small>
+    </span>
+  </button>
+
+  <button
+    id="createProjectBtn"
+    class="create-tool"
+    type="button">
+    <span class="tool-icon">&lt;/&gt;</span>
+    <span>
+      <strong>Build project</strong>
+      <small>Create and preview code</small>
+    </span>
+  </button>
+
+</div>
+
+<input
+  id="filePicker"
+  type="file"
+  multiple
+  hidden>
+
+<input
+  id="photoPicker"
+  type="file"
+  accept="image/*"
+  multiple
+  hidden>
            <label class="web-toggle">
   <input
     id="webSearch"
@@ -287,6 +401,53 @@
   <script src="chatStorage.js"></script>
   <script src="renderer.js"></script>
 
-</body>
 
+  
+  <!-- =========================
+     CODE PREVIEW MODAL
+========================= -->
+
+<div id="codePreviewModal" class="code-preview-modal" hidden>
+
+  <div class="code-preview-window">
+
+    <div class="code-preview-header">
+
+      <span>UI Preview</span>
+
+      <button
+        id="closeCodePreview"
+        type="button"
+        aria-label="Close preview">
+        ✕
+      </button>
+
+    </div>
+
+    <iframe
+      id="codePreviewFrame"
+      class="code-preview-frame"
+      sandbox="allow-scripts">
+    </iframe>
+
+  </div>
+
+</div>
+  <!-- ManThink PWA Service Worker -->
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js")
+          .then(() => {
+            console.log("ManThink Service Worker registered");
+          })
+          .catch((error) => {
+            console.error("Service Worker registration failed:", error);
+          });
+      });
+    }
+  </script>
+
+</body>
 </html>
+
