@@ -7,38 +7,7 @@
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0">
-
-    <!-- ManThink PWA -->
-<link rel="manifest" href="/manifest.json">
-
-<meta name="theme-color" content="#0d0d0d">
-<meta name="mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ManThink">
-
-<link rel="apple-touch-icon" href="/icon-192.png">
-<!-- Quantum Loader -->
-<script
-  type="module"
-  src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/quantum.js">
-</script>
-
-<!-- Markdown Renderer -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<!-- Highlight.js -->
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
-
-<script
-  src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js">
-</script>
-
-<!-- JSZip - Multi File Project Download -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
   <title>ManThink AI</title>
 
@@ -46,9 +15,47 @@
     name="description"
     content="ManThink AI - AI Assistant by Muaz Multani">
 
+  <!-- =========================
+       PWA
+  ========================== -->
+
+  <link
+    rel="manifest"
+    href="/manifest.json">
+
   <meta
     name="theme-color"
-    content="#0f172a">
+    content="#0d0d0d">
+
+  <meta
+    name="mobile-web-app-capable"
+    content="yes">
+
+  <meta
+    name="apple-mobile-web-app-capable"
+    content="yes">
+
+  <meta
+    name="apple-mobile-web-app-status-bar-style"
+    content="black-translucent">
+
+  <meta
+    name="apple-mobile-web-app-title"
+    content="ManThink">
+
+  <link
+    rel="apple-touch-icon"
+    href="/icon-192.png">
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="/logo.png">
+
+
+  <!-- =========================
+       FONTS
+  ========================== -->
 
   <link
     rel="preconnect"
@@ -63,112 +70,311 @@
     href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
+
+  <!-- =========================
+       MARKDOWN
+  ========================== -->
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
+  </script>
+
+
+  <!-- =========================
+       CODE HIGHLIGHTING
+  ========================== -->
+
   <link
     rel="stylesheet"
-    href="style.css">
-<link rel="icon" type="image/png" href="logo.png">
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css">
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js">
+  </script>
+
+
+  <!-- =========================
+       LOADER
+  ========================== -->
+
+  <script
+    type="module"
+    src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/quantum.js">
+  </script>
+
+
+  <!-- =========================
+       MAIN CSS
+  ========================== -->
+  <link
+rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
+
+  <link
+    rel="stylesheet"
+    href="/style.css">
+
 </head>
+
 
 <body class="dark">
 
-  <div id="appShell" class="app-shell visible">
+  <div
+    id="appShell"
+    class="app-shell visible">
 
-    <aside class="sidebar">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+      id="sidebar"
+      class="sidebar">
+
+
+      <!-- Mobile Sidebar Header -->
+
+      <div class="sidebar-mobile-header">
+
+        <div class="sidebar-mobile-brand">
+
+          <img
+            src="/logo.png"
+            alt="ManThink"
+            class="sidebar-mobile-logo">
+
+          <span>
+            ManThink
+          </span>
+
+        </div>
+
+
+        <button
+          id="sidebarCloseBtn"
+          class="sidebar-close-btn"
+          type="button"
+          aria-label="Close sidebar">
+
+          ✕
+
+        </button>
+
+      </div>
+
+
+      <!-- Brand -->
 
       <div class="brand">
 
-    <img src="logo.png"
-         alt="ManThink AI"
-         class="logo">
+        <img
+          src="/logo.png"
+          alt="ManThink AI"
+          class="logo">
 
-</div>
+      </div>
+
+
+      <!-- New Chat -->
 
       <button
         id="newChatBtn"
         class="new-chat"
         type="button">
 
-        + New Chat
+        <span>
+          +
+        </span>
+
+        <span>
+          New Chat
+        </span>
 
       </button>
-       <!-- Search -->
 
-<div class="chat-search">
 
-  <input
-    id="chatSearch"
-    type="text"
-    placeholder="🔍 Search chats...">
+      <!-- Chat Search -->
 
-</div>
+      <div class="chat-search">
 
-<!-- Chat History -->
+        <input
+          id="chatSearch"
+          type="search"
+          placeholder="Search chats..."
+          autocomplete="off"
+          aria-label="Search chats">
 
-<div id="chatHistory" class="chat-history">
+      </div>
 
-</div>
 
-<!-- Bottom Menu -->
+      <!-- Chat History -->
 
-<div class="menu sidebar-bottom">
+      <div
+        id="chatHistory"
+        class="chat-history">
 
-  <button
-    class="menu-btn"
-    type="button">
+      </div>
 
-    🧠 Memories
 
-  </button>
+      <!-- Workspaces -->
 
-  <button
-    class="menu-btn"
-    type="button">
+      <div class="workspace-section">
 
-    👤 Profile
+        <div class="workspace-label">
+          WORKSPACES
+        </div>
 
-  </button>
 
-  <button
-    class="menu-btn"
-    type="button">
+        <nav class="workspace-menu">
 
-    ⚙ Settings
 
-  </button>
+          <!-- Chat -->
 
-</div>
+          <a
+            class="workspace-btn active"
+            href="/"
+            data-workspace="chat">
 
-      <div class="theme-area">
+            <span class="workspace-icon">
+              💬
+            </span>
+
+            <span>
+              Chat
+            </span>
+
+          </a>
+
+
+          <!-- Code -->
+
+          <a
+            class="workspace-btn"
+            href="/code/"
+            data-workspace="code">
+
+            <span class="workspace-icon">
+              💻
+            </span>
+
+            <span>
+              Code
+            </span>
+
+          </a>
+
+
+          <!-- Learn -->
+
+          <a
+            class="workspace-btn"
+            href="/learn/"
+            data-workspace="learn">
+
+            <span class="workspace-icon">
+              🎓
+            </span>
+
+            <span>
+              Learn
+            </span>
+
+          </a>
+
+
+        </nav>
+
+      </div>
+
+
+      <!-- Sidebar Bottom -->
+
+      <div class="sidebar-footer">
+
+
+        <!-- Settings -->
+
+        <button
+          id="settingsBtn"
+          class="menu-btn"
+          type="button">
+
+          <span>
+            ⚙
+          </span>
+
+          <span>
+            Settings
+          </span>
+
+        </button>
+
+
+        <!-- Theme -->
 
         <button
           id="themeBtn"
           class="theme-btn"
           type="button">
 
-          🌙 Dark Mode
+          <span id="themeIcon">
+            🌙
+          </span>
+
+          <span id="themeText">
+            Dark Mode
+          </span>
 
         </button>
+
 
       </div>
 
     </aside>
 
-<div id="sidebarOverlay" class="sidebar-overlay"></div>
 
-<main class="main">
-  
+    <!-- =====================================================
+         MOBILE SIDEBAR OVERLAY
+    ====================================================== -->
+
+    <div
+      id="sidebarOverlay"
+      class="sidebar-overlay"
+      aria-hidden="true">
+    </div>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main">
+
+
+      <!-- ===================================================
+           HEADER
+      ==================================================== -->
+
       <header class="topbar">
 
+
+        <!-- Mobile Menu -->
+
         <button
-    id="menuToggle"
-    class="menu-toggle"
-    type="button">
+          id="menuToggle"
+          class="menu-toggle"
+          type="button"
+          aria-label="Open sidebar">
 
-    ☰
+          ☰
 
-</button>
+        </button>
 
-        <div>
+
+        <!-- Desktop Header -->
+
+        <div class="topbar-info">
 
           <div class="eyebrow">
             ManThink AI
@@ -187,39 +393,103 @@
 
         </div>
 
+
+        <!-- Mobile Brand -->
+
+        <div class="mobile-topbar-brand">
+
+          <img
+            src="/logo.png"
+            alt=""
+            class="mobile-topbar-logo">
+
+          <span>
+            ManThink
+          </span>
+
+        </div>
+
+
+        <!-- Actions -->
+
         <div class="topbar-actions">
 
-  <button
-    id="installAppBtn"
-    class="install-app-btn"
-    type="button"
-    hidden>
-    ↓ Install
-  </button>
 
-  <div class="online-pill">
-    <span class="online-dot"></span>
-    Online
-  </div>
+          <!-- Install PWA -->
 
-</div>
+          <button
+            id="installAppBtn"
+            class="install-app-btn"
+            type="button"
+            hidden>
+
+            ↓ Install
+
+          </button>
+
+
+          <!-- Online -->
+
+          <div class="online-pill">
+
+            <span class="online-dot"></span>
+
+            <span>
+              Online
+            </span>
+
+          </div>
+
+
+          <!-- Mobile New Chat -->
+
+          <button
+            id="mobileNewChatBtn"
+            class="mobile-new-chat-btn"
+            type="button"
+            aria-label="New chat">
+
+            ＋
+
+          </button>
+
+
+        </div>
 
       </header>
-            <section id="chatbox" class="chatbox">
 
-        <div id="welcomeCard" class="welcome-card">
+
+      <!-- ===================================================
+           CHAT
+      ==================================================== -->
+
+      <section
+        id="chatbox"
+        class="chatbox"
+        aria-live="polite">
+
+
+        <!-- Welcome -->
+
+        <div
+          id="welcomeCard"
+          class="welcome-card">
+
 
           <div class="welcome-tag">
             Welcome
           </div>
 
+
           <div class="mini-note">
             More to come!
           </div>
 
+
           <h2>
             What can I help with today?
           </h2>
+
 
           <p>
             Start with a coding problem,
@@ -228,7 +498,11 @@
             or anything on your mind.
           </p>
 
+
+          <!-- Quick Prompts -->
+
           <div class="quick-grid">
+
 
             <button
               class="quick-btn"
@@ -239,6 +513,7 @@
 
             </button>
 
+
             <button
               class="quick-btn"
               type="button"
@@ -247,6 +522,7 @@
               Game Idea
 
             </button>
+
 
             <button
               class="quick-btn"
@@ -257,6 +533,7 @@
 
             </button>
 
+
             <button
               class="quick-btn"
               type="button"
@@ -266,188 +543,411 @@
 
             </button>
 
+
           </div>
 
         </div>
 
       </section>
 
+
+      <!-- ===================================================
+           COMPOSER AREA
+      ==================================================== -->
+
       <section class="composer-wrap">
-        
-      <!-- Selected Files / Photos Preview -->
-<div
-  id="attachmentPreview"
-  class="attachment-preview"
-  hidden>
-</div>
+
+
+        <!-- Attachment Preview -->
+
+        <div
+          id="attachmentPreview"
+          class="attachment-preview"
+          hidden>
+        </div>
+
 
         <div class="composer">
 
-         <button
-  id="createMenuBtn"
-  class="icon-btn create-orb"
-  type="button"
-  title="Create with ManThink"
-  aria-label="Open tools">
 
-  <span class="create-spark">✦</span>
-  <span class="create-plus">+</span>
+          <!-- Create Button -->
 
-</button>
-<div id="createMenu" class="create-menu" hidden>
+          <button
+            id="createMenuBtn"
+            class="icon-btn create-orb"
+            type="button"
+            title="Create with ManThink"
+            aria-label="Open tools">
 
-  <div class="create-menu-title">
-    <span>✦</span>
-    Create with ManThink
-  </div>
+            <span class="create-spark">
+              ✦
+            </span>
 
-  <button
-    id="uploadFileBtn"
-    class="create-tool"
-    type="button">
-    <span class="tool-icon">📎</span>
-    <span>
-      <strong>Upload files</strong>
-      <small>PDF, code, documents</small>
-    </span>
-  </button>
+            <span class="create-plus">
+              +
+            </span>
 
-  <button
-    id="uploadPhotoBtn"
-    class="create-tool"
-    type="button">
-    <span class="tool-icon">▧</span>
-    <span>
-      <strong>Add photos</strong>
-      <small>Images and screenshots</small>
-    </span>
-  </button>
+          </button>
 
-  <button
-    id="createWebBtn"
-    class="create-tool"
-    type="button">
-    <span class="tool-icon">◎</span>
-    <span>
-      <strong>Web search</strong>
-      <small>Search current information</small>
-    </span>
-  </button>
 
-  <button
-    id="createProjectBtn"
-    class="create-tool"
-    type="button">
-    <span class="tool-icon">&lt;/&gt;</span>
-    <span>
-      <strong>Build project</strong>
-      <small>Create and preview code</small>
-    </span>
-  </button>
+          <!-- =================================================
+               CREATE MENU
+          ================================================== -->
 
-</div>
+          <div
+            id="createMenu"
+            class="create-menu"
+            hidden>
 
-<input
-  id="filePicker"
-  type="file"
-  multiple
-  hidden>
 
-<input
-  id="photoPicker"
-  type="file"
-  accept="image/*"
-  multiple
-  hidden>
-           <label class="web-toggle">
-  <input
-    id="webSearch"
-    type="checkbox">
+            <div class="create-menu-title">
 
-  <span>🌐 Web</span>
-</label>
+              <span>
+                ✦
+              </span>
+
+              <span>
+                Create with ManThink
+              </span>
+
+            </div>
+
+
+            <!-- Upload File -->
+
+            <button
+              id="uploadFileBtn"
+              class="create-tool"
+              type="button">
+
+              <span class="tool-icon">
+                📎
+              </span>
+
+              <span>
+
+                <strong>
+                  Upload files
+                </strong>
+
+                <small>
+                  PDF, code and documents
+                </small>
+
+              </span>
+
+            </button>
+
+
+            <!-- Upload Photo -->
+
+            <button
+              id="uploadPhotoBtn"
+              class="create-tool"
+              type="button">
+
+              <span class="tool-icon">
+                ▧
+              </span>
+
+              <span>
+
+                <strong>
+                  Add photos
+                </strong>
+
+                <small>
+                  Images and screenshots
+                </small>
+
+              </span>
+
+            </button>
+
+
+            <!-- Web Search -->
+
+            <button
+              id="createWebBtn"
+              class="create-tool"
+              type="button">
+
+              <span class="tool-icon">
+                ◎
+              </span>
+
+              <span>
+
+                <strong>
+                  Web search
+                </strong>
+
+                <small id="webSearchMenuStatus">
+                  Search current information
+                </small>
+
+              </span>
+
+            </button>
+
+
+          </div>
+
+
+          <!-- Hidden File Picker -->
+
+          <input
+            id="filePicker"
+            type="file"
+            multiple
+            hidden>
+
+
+          <!-- Hidden Photo Picker -->
+
+          <input
+            id="photoPicker"
+            type="file"
+            accept="image/*"
+            multiple
+            hidden>
+
+
+          <!-- Web Search Desktop Control -->
+
+          <label
+            id="webToggleLabel"
+            class="web-toggle">
+
+            <input
+              id="webSearch"
+              type="checkbox">
+
+            <span>
+              🌐 Web
+            </span>
+
+          </label>
+
+
+          <!-- Message Input -->
 
           <input
             id="message"
             type="text"
             placeholder="Message ManThink AI..."
-            autocomplete="off">
+            autocomplete="off"
+            enterkeyhint="send"
+            aria-label="Message ManThink AI">
+
+
+          <!-- =================================================
+               SINGLE DYNAMIC ACTION BUTTON
+
+               Empty input:
+               microphone
+
+               Has text:
+               send
+
+               AI generating:
+               stop
+
+               Voice recording:
+               stop
+          ================================================== -->
 
           <button
-            class="icon-btn"
+            id="actionBtn"
+            class="message-action-btn"
             type="button"
-            title="Voice">
+            title="Voice"
+            aria-label="Start voice input">
 
-            🎤
+            <span
+              id="actionIcon"
+              class="action-icon">
 
-          </button>
+              🎤
 
-          <button
-            id="sendBtn"
-            class="send-btn"
-            type="button">
-
-            ➤
+            </span>
 
           </button>
+
 
         </div>
+
+
+        <!-- Status / Voice Message -->
+
+        <div
+          id="composerStatus"
+          class="composer-status"
+          aria-live="polite"
+          hidden>
+        </div>
+
 
       </section>
 
     </main>
 
   </div>
-  <script src="chatStorage.js"></script>
-  <script src="renderer.js"></script>
 
 
-  
-  <!-- =========================
-     CODE PREVIEW MODAL
-========================= -->
+  <!-- =====================================================
+       SETTINGS MODAL
+  ====================================================== -->
 
-<div id="codePreviewModal" class="code-preview-modal" hidden>
+  <div
+    id="settingsModal"
+    class="settings-modal"
+    hidden>
 
-  <div class="code-preview-window">
+    <div
+      id="settingsBackdrop"
+      class="settings-backdrop">
+    </div>
 
-    <div class="code-preview-header">
 
-      <span>UI Preview</span>
+    <div
+      class="settings-window"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="settingsTitle">
 
-      <button
-        id="closeCodePreview"
-        type="button"
-        aria-label="Close preview">
-        ✕
-      </button>
+
+      <div class="settings-header">
+
+        <h2 id="settingsTitle">
+          Settings
+        </h2>
+
+
+        <button
+          id="closeSettingsBtn"
+          class="settings-close-btn"
+          type="button"
+          aria-label="Close settings">
+
+          ✕
+
+        </button>
+
+      </div>
+
+
+      <div class="settings-content">
+
+
+        <div class="settings-row">
+
+          <div>
+
+            <strong>
+              Theme
+            </strong>
+
+            <p>
+              Switch between dark and light mode.
+            </p>
+
+          </div>
+
+
+          <button
+            id="settingsThemeBtn"
+            class="settings-action-btn"
+            type="button">
+
+            Toggle theme
+
+          </button>
+
+        </div>
+
+
+        <div class="settings-row">
+
+          <div>
+
+            <strong>
+              Clear chat history
+            </strong>
+
+            <p>
+              Remove saved conversations from this browser.
+            </p>
+
+          </div>
+
+
+          <button
+            id="clearHistoryBtn"
+            class="settings-action-btn danger"
+            type="button">
+
+            Clear
+
+          </button>
+
+        </div>
+
+
+      </div>
 
     </div>
 
-    <iframe
-      id="codePreviewFrame"
-      class="code-preview-frame"
-      sandbox="allow-scripts">
-    </iframe>
-
   </div>
 
-</div>
-  <!-- ManThink PWA Service Worker -->
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
+  <script src="/chatStorage.js"></script>
+
+  <script src="/renderer.js"></script>
+
+
+  <!-- =====================================================
+       PWA SERVICE WORKER
+  ====================================================== -->
+
   <script>
+
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/sw.js")
-          .then(() => {
-            console.log("ManThink Service Worker registered");
-          })
-          .catch((error) => {
-            console.error("Service Worker registration failed:", error);
-          });
-      });
+
+      window.addEventListener(
+        "load",
+        () => {
+
+          navigator
+            .serviceWorker
+            .register("/sw.js")
+            .then(() => {
+
+              console.log(
+                "ManThink Service Worker registered"
+              );
+
+            })
+            .catch(error => {
+
+              console.error(
+                "Service Worker registration failed:",
+                error
+              );
+
+            });
+
+        }
+      );
+
     }
+
   </script>
 
 </body>
-</html>
 
+</html>

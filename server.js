@@ -4,6 +4,8 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import handler from "./api/chat.js";
+import codeHandler from "./api/code.js";
+
 
 const app = express();
 
@@ -21,6 +23,10 @@ app.use(express.static(path.join(__dirname, "public")));
 // API
 app.post("/api/chat", async (req, res) => {
   await handler(req, res);
+});
+
+app.post("/api/code", async (req, res) => {
+  await codeHandler(req, res);
 });
 
 // Homepage
