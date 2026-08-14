@@ -1260,25 +1260,30 @@ a {
     rgba(22, 185, 149, 0.09);
 }
 
-#message {
-  flex: 1;
+#message{
 
-  min-width: 0;
-  height: 41px;
+width:100%;
 
-  padding:
-    0
-    6px;
+resize:none;
 
-  outline: none;
+overflow-y:hidden;
 
-  border: none;
+min-height:24px;
 
-  background: transparent;
+max-height:220px;
 
-  color: var(--text);
+padding:8px 0;
 
-  font-size: 13px;
+background:transparent;
+
+border:none;
+
+outline:none;
+
+font:inherit;
+
+line-height:1.6;
+
 }
 
 #message::placeholder {
@@ -2241,16 +2246,25 @@ font-variation-settings:
     border-radius: 25px;
   }
 
-  #message {
-    height: 40px;
+ #message{
 
-    padding:
-      0
-      4px;
+min-height:24px;
 
-    font-size: 16px;
-  }
+max-height:220px;
 
+height:auto;
+
+padding:8px 4px;
+
+line-height:1.6;
+
+overflow-y:auto;
+
+resize:none;
+
+font-size:16px;
+
+}
 
   /* + button */
 

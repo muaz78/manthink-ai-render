@@ -4,8 +4,6 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import handler from "./api/chat.js";
-import codeHandler from "./api/code.js";
-
 
 const app = express();
 
@@ -13,34 +11,50 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(cors());
+
 app.use(express.json({
   limit: "10mb"
 }));
 
 // Serve files from public/
-app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  express.static(
+    path.join(__dirname, "public")
+  )
+);
 
 // API
 app.post("/api/chat", async (req, res) => {
   await handler(req, res);
 });
 
-app.post("/api/code", async (req, res) => {
-  await codeHandler(req, res);
-});
-
 // Homepage
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "index.html"
+    )
+  );
 });
 
 // Any other route
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "index.html"
+    )
+  );
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT =
+  process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`ManThink running on port ${PORT}`);
+  console.log(
+    `ManThink running on port ${PORT}`
+  );
 });

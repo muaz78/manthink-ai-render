@@ -2346,9 +2346,8 @@ async function sendMessage(
 
   if (messageInput) {
 
-    messageInput.value =
-      "";
-
+    messageInput.value ="";
+messageInput.style.height = "";
   }
 
 
@@ -3407,11 +3406,19 @@ function bindEvents() {
 
   // Input
 
-  messageInput
-    ?.addEventListener(
-      "input",
-      updateActionButton
-    );
+ messageInput?.addEventListener("input", () => {
+
+    messageInput.style.height = "0px";
+
+    messageInput.style.height =
+        Math.min(
+            messageInput.scrollHeight,
+            220
+        ) + "px";
+
+    updateActionButton();
+
+});
 
 
   messageInput
@@ -3420,8 +3427,7 @@ function bindEvents() {
       event => {
 
         if (
-          event.key ===
-            "Enter" &&
+          event.key === "Enter" &&
           !event.shiftKey &&
           !event.isComposing
         ) {
